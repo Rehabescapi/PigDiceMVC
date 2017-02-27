@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>PigDice</title>
+        <link rel="stylesheet" type="text/css" href="pigDice.css"/>
+        <script type="text/javascript" src="javascript/lib/underscore-min.js"></script>
+
+
+        <!-- The PigGameConfig triad -->
+        <script type="text/javascript" src="javascript/PigGameConfig/PigGameConfig.js"></script>
+        <script type="text/javascript" src="javascript/PigGameConfig/PigGameConfig.view.js"></script>
+        <script type="text/javascript" src="javascript/PigGameConfig/PigGameConfig.controller.js?v1"></script>
+        <!-- This triad has no model. -->
+
+
+
+        <!-- The GameDie triad -->
+        <script type="text/javascript" src="javascript/GameDie/GameDie.js"></script>
+        <script type="text/javascript" src="javascript/GameDie/GameDie.model.js"></script>
+        <script type="text/javascript" src="javascript/GameDie/GameDie.view.js"></script>
+
+        <!-- The PigGame triad -->
+        <script type="text/javascript" src="javascript/PigGame/PigGame.js"></script>
+        <script type="text/javascript" src="javascript/PigGame/PigGame.controller.js"></script>
+        <script type="text/javascript" src="javascript/PigGame/PigGame.view.js"></script>
+        <script type="text/javascript" src="javascript/PigGame/PigGame.model.js"></script>
+
+        <script type="text/javascript" src="javascript/PigGame/PigGame.Player.js"></script>
+        <!-- And off we go! -->
+        <script type="text/javascript">
+            window.onload = function () {
+                PigGameConfig.Controller.init();
+                rolloutPlayers();
+            }
+        </script>
+    </head>
+    <body>
+
+        <h1>Pig Dice</h1>
+
+
+        <!---------------------------------------------------------------------------------
+        !
+        !  Configuration menu
+        !
+        !--------------------------------------------------------------------------------->
+        <div id="configuration">
+
+            <!--
+            TODO:  Put your configuration form / page here
+           
+        <br><br>
+            -->
+
+            <form>
+                Select Number of Players:
+                <select id="selectPnum" oninput="rolloutPlayers()">
+
+                    <option value = "2" selected="">2</option>
+                    <option value = "3">3</option>
+                    <option value = "4">4</option>
+                </select>
+            </form>
+            <div id = "playerNames" >
+
+            </div>
+
+            <!-- Submit Handlers are on forms not buttons  -->
+            <form  id = "tScore">
+
+
+                Play until this gets reached: <input id ="MaxScore" type="number" name="score" value = "10"><br>
+                <input id ="SubmitHandler"  type="submit" value="Submit" >
+            </form>
+
+
+
+        </div>
+
+        <!---------------------------------------------------------------------------------
+        !
+        !  The game
+        !
+        !--------------------------------------------------------------------------------->
+        <div id="board" class="game_board">
+
+
+
+            <canvas id ="dieCanvas" width="400" height ="300" >
+
+            </canvas>
+
+
+
+            <div class="row">
+                <div class="span-4" id="game">
+
+                </div>
+
+                <div class="span-4" id="controls">
+                    <p><span id="current-player"></span>, your turn!</p>
+
+
+                    <form  id = "gamble">
+                        <input id="rollBtn" type="submit">Roll</form>
+
+                    <form  id = "pass">
+                        <input  id="holdBtn" type="submit">Hold </form>
+                    <form id ="newGame">
+                        <input id="newGameBtn" type ="submit" hidden value = "New Game">
+                    </form>
+                </div>
+
+                <div class="span-4" id="turn">
+
+                    <p><span class = "CPlayerName">You</span> rolled a <span id="current-roll"></span>.</p>
+
+                    <p>So far, you've scored <span id="current-turn-score" >0</span> points this turn.</p>
+                    <p> First Person to <span id = "winningScore"> </span> wins!!</p>
+                </div>
+            </div>
+
+        </div>
+        <script>
+
+            function rolloutPlayers()
+            {
+                event.preventDefault();
+                
+                var PnameHolder = document.getElementById("playerNames");
+                while (PnameHolder.hasChildNodes())
+                {
+                    PnameHolder.removeChild(PnameHolder.childNodes[0]);
+                }
+
+
+                var playerNum = document.getElementById("selectPnum").value;
+                for (var i = 0; i < playerNum; i++)
+                {
+                    var k = i + 1;
+                    var x = document.createElement("INPUT");
+                    x.setAttribute("type", "text");
+                    x.setAttribute("value", "Player" + k + " !");
+                    x.addEventListener("onchange", function(){myFunction();});
+                    //x.setAttribute( "onchange","myFunction(x.valueOf())");
+                    PnameHolder.appendChild(x);
+                    PnameHolder.appendChild(document.createElement("br"));
+
+                }
+                var y = document.createElement("INPUT");
+                y.setAttribute("type", "submit");
+                // y.setAttribute()
+              //  PnameHolder.appendChild(y)
+            }
+            function myFunction(k)
+            {
+                k.value = k.value+"1";
+            }
+        </script>
+    </body>
+
+</html>

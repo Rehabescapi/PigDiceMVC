@@ -1,0 +1,41 @@
+
+.scoreHeader {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.scoreList {
+    margin-top: 0px;
+    pagdding-top: 0px;
+}
+
+.game_die {
+    border: 1px solid black;
+}
+
+.center {
+    margin: auto;
+}
+
+.game_board {
+    display: none;
+}
+
+.die_area {
+    border: 1px grey dotted;
+}
+#game.span-4{
+    
+}
+#current-player
+{
+    border: 1px solid black;
+    color: blue;
+}
+#dieCanvas{
+    border: black;
+}
+
+fieldset {
+    display: inline-block;
+}
