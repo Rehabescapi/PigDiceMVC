@@ -3,7 +3,8 @@
  *
  * Controller for the PigGame MVC triad.
  *
- * Created by kurmasz on 3/23/15.
+ *
+ * Implemented by Jason Lehmann 
  */
 
 
@@ -20,7 +21,6 @@ PigGame.Controller = (function () {
 
         var passButton = function (event) {
             event.preventDefault();
-            // console.log("hi mom");
             newTurn();
 
 
@@ -28,14 +28,17 @@ PigGame.Controller = (function () {
         var rollButton = function (event) {
             event.preventDefault();
             model.roll();
+            model.iterateTurn();
+            view.updateDie(model.currentDieValue(),model.getCurrentTurn());
 
-            //  var taco = model.currentDieValue();
-            view.updateDie(model.currentDieValue());
 
             if (model.currentDieValue() == 1)
             {
+                view.displayBustedMessage();
                 newTurn();
+             return;
             } else {
+                
 //todo is muching up on first roll
                 var cv = model.getCurrentPoint();
                 var vc = model.getCurrentPlayer().getPScore();
@@ -43,7 +46,7 @@ PigGame.Controller = (function () {
                 if ((cv + vc) >= model.getTargetScore()) {
                     var x = model.getCurrentPlayer();
                     view.winCondition(x);
-                    console.log("You Win");
+                    alert("You Win");
                 } else {
                     view.updateCurrentPoint(model.getCurrentPoint());
                 }
@@ -51,21 +54,18 @@ PigGame.Controller = (function () {
         };
 
         var newTurn = function () {
-            model.pass();
+            
 
-
-            // TODO : ViewupdatePlayerScores
-
+         
             view.updatePlayerScores(model.getPlayerScores());
             
             view.updateCurrentPlayer(model.getCurrentPlayer().getPName());
+
+            model.pass();
+
         };
 
-        var assignNames = function ()
-        {
-            //  view.initScoreList();
-        };
-
+       
 
 
         console.log("ON TO PIG GAME");
@@ -79,6 +79,10 @@ PigGame.Controller = (function () {
         view.setPassHandler(passButton);
         view.updatePlayerScores(model.getPlayerScores);
         view.updateWinningScore(targetScore);
+
+      //For some reason Gaame wont catch the first busted unless this the first new turn has happened. 
+            newTurn();
+        
 
     };
 

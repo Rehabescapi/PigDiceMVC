@@ -1,6 +1,6 @@
 "use strict";
 /**
- * Created by kurmasz on 2/11/15.
+ * 
  */
 
 
@@ -8,14 +8,14 @@ PigGame.Model = (function () {
 
     var init = function (playerNames, targetScore_in) {
         console.log(playerNames);
-        // This shows you the instance variables I used when I implemented PigDice.
-        // Feel free to change this list as you see fit.
-        var gameDizzle;
+        
+        var gameDice;
         var players = [];
         var currentPlayer;
         var c = 0;
         var currentPoint = 0;
         var targetScore = targetScore_in;
+        var turn =0;
         var initializePlayers = function ()
         {
 
@@ -24,19 +24,23 @@ PigGame.Model = (function () {
 
 
                 players.push(PigGame.Player.init(playerNames[i]));
-
-
-
             }
             //currentPlayer = players[0];
 
             return players;
         };
 
-
+        var iterateTurn = function ()
+        {
+            turn ++;
+        };
+ var getCurrentTurn = function ()
+        {
+            return turn;
+        };
         var currentDieValue = function () {
 
-            return gameDizzle;
+            return gameDice;
         };
 
         //get
@@ -47,11 +51,10 @@ PigGame.Model = (function () {
         {
             //return players;
             var holder = [];
-            console.log(players.length);
+           
             for (var i = 0; i < players.length; i++)
             {
-              //  console.log(players[i].getPScore());
-
+            
 
                 holder.push(players[i].getPScore());
             }
@@ -77,17 +80,17 @@ PigGame.Model = (function () {
 
         var roll = function () {
 
-            gameDizzle = 1 + Math.floor(Math.random() * 6);
+            gameDice = 1 + Math.floor(Math.random() * 6);
             // console.log(gameDizzle);
-            GameDie.View.init(gameDizzle);
-            if (gameDizzle > 1)
+            GameDie.View.init(gameDice);
+            if (gameDice > 1)
             {
-                currentPoint += gameDizzle;
+                currentPoint += gameDice;
             } else
             {
                
                currentPoint = 0;
-                
+                turn =0;
             }
             //check if current die + cached score is winning
 
@@ -100,7 +103,7 @@ PigGame.Model = (function () {
             // alert("Boo Pass");
             
             players[c].upDateScore(currentPoint);
-
+        turn =0;
             currentPoint = 0;
             if (c == (players.length - 1))
             {
@@ -128,6 +131,8 @@ PigGame.Model = (function () {
             getCurrentPoint: getCurrentPoint,
             getCurrentPlayer: getCurrentPlayer,
             setBustedHandler: setBustedHandler,
+            getCurrentTurn : getCurrentTurn,
+            iterateTurn: iterateTurn,
             initializePlayers: initializePlayers,
             roll: roll,
             pass: pass

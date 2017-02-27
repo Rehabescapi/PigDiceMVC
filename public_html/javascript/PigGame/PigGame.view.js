@@ -1,6 +1,7 @@
 "use strict";
 /**
  * Created by kurmasz on 2/16/15.
+ * Implemented by Jason Lehmann and Updated on Feb 2017
  */
 
 PigGame.View = (function () {
@@ -24,20 +25,20 @@ PigGame.View = (function () {
         };
         //TODO:  Add any other necessary instance variables and instance methods 
 
-        var showBoard = function (pDizzle)
+        var showBoard = function (players)
         {
-            console.log(pDizzle[0].getPName() + "to set up");
+            console.log(players[0].getPName() + "to set up");
 
             document.getElementById("board").style.display = "block";
             var row = document.getElementById("game");
-            for (var i = 0; i < pDizzle.length; i++)
+            for (var i = 0; i < players.length; i++)
             {
                 //creating the playername List
                 var para = document.createElement("P");
-                var t = document.createTextNode(pDizzle[i].getPName() + " total points : ");
+                var t = document.createTextNode(players[i].getPName() + " total points : ");
                 var d = document.createElement("SPAN");
                 d.setAttribute("class", "pRow");
-                //d.innerHTML = Pdizzle[i].getPScore();
+               
 
                 para.appendChild(t);
                 para.appendChild(d);
@@ -46,30 +47,35 @@ PigGame.View = (function () {
                 row.appendChild(para);
 
             }
-            initScoreList(pDizzle);
-            updateCurrentPlayer(pDizzle[0].getPName());
+            initScoreList(players);
+            updateCurrentPlayer(players[0].getPName());
         };
 
-        var initScoreList = function (pDizzle)
+        var initScoreList = function (players)
         {
             var row = document.getElementsByClassName("pRow");
             console.log(row);
-            for (var i = 0; i < pDizzle.length; i++)
+            for (var i = 0; i < players.length; i++)
             {
-                row[i].innerHTML = pDizzle[i].getPScore();
+                row[i].innerHTML = players[i].getPScore();
             }
         };
         
         var winCondition = function(cPlayer)
         {
-            alert(cPlayer.getPName()  + "Wins " );
+           
             document.getElementById("rollBtn").setAttribute("disabled",true);
             document.getElementById("holdBtn").setAttribute("disabled",true);
             document.getElementById("newGameBtn").removeAttribute("hidden");
         };
         
-        var updateDie = function (n) {
+        var updateDie = function (n,t = 0) {
+//alert (t);
             document.getElementById("current-roll").innerHTML = n;
+           
+           
+           
+        // document.getElementById("roleCounter").innerHTML = t.toString();
         };
 
         var updateWinningScore = function (score)
@@ -93,7 +99,7 @@ PigGame.View = (function () {
         };
         var updateCurrentPlayer = function (cPlayer)
         {
-           console.log(cPlayer);
+         //  console.log(cPlayer);
            var k =  document.getElementById("current-player");
                k.innerHTML = cPlayer;
         };

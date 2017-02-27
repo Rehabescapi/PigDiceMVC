@@ -2,6 +2,7 @@
  *  The controller for the input configuration for PigDice
  *
  * Created by kurmasz on 5/22/15.
+ * Implemented by Jason Lehmann in summer 2015 updated Feb 2017
  */
 PigGameConfig.Controller = (function () {
 
@@ -13,10 +14,9 @@ PigGameConfig.Controller = (function () {
         // This is a private method.
         // This is the method called when the form is submitted.
         var formSubmitted = function (event) {
-           // alert("Boo!");
             event.preventDefault();
 
-            //console.log("Hi Mom");
+           
             //getPlayerNames
             var names = view.getPlayerNames();
             var targetScore = view.getTargetScore();
@@ -32,11 +32,19 @@ PigGameConfig.Controller = (function () {
             view.hideConfiguration();
         };
 
-        // This is where the "constructor code" goes.
-        // (This is analogous to the code you would put in a Java constructor.)
-        
+        var rollout = function(event)
+        {
+             event.preventDefault();
+
+            view.rollout();
+        }
+
+    
+       
         var view = PigGameConfig.View.init();
         view.rollout();
+        view.setPNames();
+        view.setPHandler(rollout);
         view.setFormHandler(formSubmitted);
         
     };

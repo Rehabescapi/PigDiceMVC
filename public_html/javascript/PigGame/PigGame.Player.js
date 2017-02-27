@@ -18,9 +18,9 @@ PigGame.Player = (function () {
         var score = 0;
 
        
-        var upDateScore = function (woot)
+        var upDateScore = function (roundNum)
         {
-            score += woot;
+            score += roundNum;
         };
         var getPScore = function ()
         {

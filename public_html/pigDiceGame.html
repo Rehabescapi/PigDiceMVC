@@ -30,9 +30,11 @@
         <!-- And off we go! -->
         <script type="text/javascript">
             window.onload = function () {
-                PigGameConfig.Controller.init();
-                rolloutPlayers();
+                var cont = PigGameConfig.Controller.init();
+                
+                
             }
+            
         </script>
     </head>
     <body>
@@ -55,7 +57,7 @@
 
             <form>
                 Select Number of Players:
-                <select id="selectPnum" oninput="rolloutPlayers()">
+                <select id="selectPnum" >
 
                     <option value = "2" selected="">2</option>
                     <option value = "3">3</option>
@@ -114,7 +116,9 @@
 
                 <div class="span-4" id="turn">
 
-                    <p><span class = "CPlayerName">You</span> rolled a <span id="current-roll"></span>.</p>
+                    <p><span class = "CPlayerName">You</span> rolled a <span id="current-roll"></span>.
+                
+                    </p>
 
                     <p>So far, you've scored <span id="current-turn-score" >0</span> points this turn.</p>
                     <p> First Person to <span id = "winningScore"> </span> wins!!</p>
@@ -122,42 +126,7 @@
             </div>
 
         </div>
-        <script>
-
-            function rolloutPlayers()
-            {
-                event.preventDefault();
-                
-                var PnameHolder = document.getElementById("playerNames");
-                while (PnameHolder.hasChildNodes())
-                {
-                    PnameHolder.removeChild(PnameHolder.childNodes[0]);
-                }
-
-
-                var playerNum = document.getElementById("selectPnum").value;
-                for (var i = 0; i < playerNum; i++)
-                {
-                    var k = i + 1;
-                    var x = document.createElement("INPUT");
-                    x.setAttribute("type", "text");
-                    x.setAttribute("value", "Player" + k + " !");
-                    x.addEventListener("onchange", function(){myFunction();});
-                    //x.setAttribute( "onchange","myFunction(x.valueOf())");
-                    PnameHolder.appendChild(x);
-                    PnameHolder.appendChild(document.createElement("br"));
-
-                }
-                var y = document.createElement("INPUT");
-                y.setAttribute("type", "submit");
-                // y.setAttribute()
-              //  PnameHolder.appendChild(y)
-            }
-            function myFunction(k)
-            {
-                k.value = k.value+"1";
-            }
-        </script>
+       
     </body>
 
 </html>
